@@ -1,28 +1,36 @@
 {
-    "name": "nunomaduro/skeleton-php",
-    "description": "A skeleton repository for my packages",
-    "keywords": ["php", "skeleton", "package"],
+    "name": "codelabmw/testament",
+    "description": "A UI & DB agnostic PHP package for code generation and verification.",
+    "keywords": [
+        "php",
+        "verification",
+        "verification-code",
+        "verification-code-generator",
+        "verification-code-verifier",
+        "password-generator"
+    ],
     "license": "MIT",
     "authors": [
         {
-            "name": "Nuno Maduro",
-            "email": "enunomaduro@gmail.com"
+            "name": "Chikondi Kamwendo",
+            "email": "kondie208@gmail.com",
+            "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.3.0"
     },
     "require-dev": {
-        "laravel/pint": "^1.18.1",
-        "pestphp/pest": "^3.5.1",
-        "pestphp/pest-plugin-type-coverage": "^3.1",
-        "phpstan/phpstan": "^1.12.7",
-        "rector/rector": "^1.2.8",
-        "symfony/var-dumper": "^7.1.6"
+        "laravel/pint": "^1.19.0",
+        "pestphp/pest": "^3.7.1",
+        "pestphp/pest-plugin-type-coverage": "^3.2.3",
+        "phpstan/phpstan": "^1.12.13",
+        "rector/rector": "^1.2.10",
+        "symfony/var-dumper": "^7.2.0"
     },
     "autoload": {
         "psr-4": {
-            "NunoMaduro\\SkeletonPhp\\": "src/"
+            "Codelabmw\\Testament\\": "src/"
         }
     },
     "autoload-dev": {

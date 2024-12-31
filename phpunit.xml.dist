@@ -9,8 +9,14 @@
         </include>
     </source>
     <testsuites>
-        <testsuite name="default">
-            <directory suffix=".php">./tests</directory>
+        <testsuite name="architecture">
+            <directory suffix=".php">./tests/Architecture</directory>
+        </testsuite>
+        <testsuite name="feature">
+            <directory suffix=".php">./tests/Feature</directory>
+        </testsuite>
+        <testsuite name="unit">
+            <directory suffix=".php">./tests/Unit</directory>
         </testsuite>
     </testsuites>
 </phpunit>

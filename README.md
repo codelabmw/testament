@@ -1,47 +1,66 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/nunomaduro/skeleton-php/master/docs/example.png" height="300" alt="Skeleton Php">
+    <img src="art/testament-banner.png" alt="Testament">
     <p align="center">
-        <a href="https://github.com/nunomaduro/skeleton-php/actions"><img alt="GitHub Workflow Status (master)" src="https://github.com/nunomaduro/skeleton-php/actions/workflows/tests.yml/badge.svg"></a>
-        <a href="https://packagist.org/packages/nunomaduro/skeleton-php"><img alt="Total Downloads" src="https://img.shields.io/packagist/dt/nunomaduro/skeleton-php"></a>
-        <a href="https://packagist.org/packages/nunomaduro/skeleton-php"><img alt="Latest Version" src="https://img.shields.io/packagist/v/nunomaduro/skeleton-php"></a>
-        <a href="https://packagist.org/packages/nunomaduro/skeleton-php"><img alt="License" src="https://img.shields.io/packagist/l/nunomaduro/skeleton-php"></a>
+        <a href="https://github.com/codelabmw/testament/actions"><img alt="GitHub Workflow Status (master)" src="https://github.com/codelabmw/testament/actions/workflows/tests.yml/badge.svg"></a>
+        <a href="https://packagist.org/packages/codelabmw/testament"><img alt="Total Downloads" src="https://img.shields.io/packagist/dt/codelabmw/testament"></a>
+        <a href="https://packagist.org/packages/codelabmw/testament"><img alt="Latest Version" src="https://img.shields.io/packagist/v/codelabmw/testament"></a>
+        <a href="https://packagist.org/packages/codelabmw/testament"><img alt="License" src="https://img.shields.io/packagist/l/codelabmw/testament"></a>
     </p>
 </p>
 
 ------
-This package provides a wonderful **PHP Skeleton** to start building your next package idea.
+A UI & DB agnostic PHP package for code generation and verification. It only aims on providing an API for generating cryptographic codes and verifying between two given codes elegantly.
 
 > **Requires [PHP 8.3+](https://php.net/releases/)**
 
-⚡️ Create your package using [Composer](https://getcomposer.org):
+## Installation
+
+You can install the package via composer:
 
 ```bash
-composer create-project nunomaduro/skeleton-php --prefer-source PackageName
+composer require codelabmw/testament
 ```
 
-🧹 Keep a modern codebase with **Pint**:
-```bash
-composer lint
+## Usage
+
+```php
+<?php
+
+$testament = new \Codelabmw\Testament\Testament::default();
+
+$code = $testament->generate(
+  type: \Codelabmw\Testament\Enums\CodeType::NUMERIC /* code type - numeric | alpa | alphanumeric | password */,
+  length: 8 /* number of characters */
+);
+
+$codeFromUser = getUserCode();
+$codeFromStorage = getStorageCode();
+
+$verified = $testament->verify(
+  expected: $codeFromUser /* ... */,
+  actual: $codeFromStorage /* ... */,
+);
 ```
 
-✅ Run refactors using **Rector**
-```bash
-composer refacto
-```
+## Testing
 
-⚗️ Run static analysis using **PHPStan**:
-```bash
-composer test:types
-```
-
-✅ Run unit tests using **PEST**
-```bash
-composer test:unit
-```
-
-🚀 Run the entire test suite:
 ```bash
 composer test
 ```
 
-**Skeleton PHP** was created by **[Nuno Maduro](https://twitter.com/enunomaduro)** under the **[MIT license](https://opensource.org/licenses/MIT)**.
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Credits
+
+- [Chikondi Kamwendo](https://github.com/kondi3)
+- [All Contributors](../../contributors)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
