@@ -4,49 +4,63 @@ declare(strict_types=1);
 
 namespace Codelabmw\Testament;
 
-use Codelabmw\Testament\Contracts\Testament as ITestament;
+use Codelabmw\Testament\Contracts\Generator;
 use Codelabmw\Testament\Enums\CodeType;
+use Codelabmw\Testament\Generators\DefaultGenerator;
 
-class Testament implements ITestament
+final class Testament
 {
     /**
-     * Create a new instance of Testament with default settings.
+     * Keeps track of current Testament instance.
      */
-    public static function default(): self
-    {
-        return new self;
-    }
+    private static ?self $instance = null;
 
     /**
-     * Generates a new cryptographically secure code.
+     * Creates a private instance of Testament.
      */
-    public function generate(CodeType $type, int $length): string
+    private function __construct(private readonly Generator $generator) {}
+
+    /**
+     * A private Testament factory using DefaultGenerator.
+     */
+    private static function make(): static
     {
-        $code = '';
-
-        $generator = function () use ($type, $length) {
-            for ($i = 0; $i < $length; $i++) {
-                yield match ($type) {
-                    CodeType::NUMERIC => random_int(0, 9),
-                    CodeType::ALPHA => chr(random_int(65, 90)),
-                    CodeType::ALPHANUMERIC => chr(random_int(65, 90)).chr(random_int(48, 57)),
-                    CodeType::PASSWORD => chr(random_int(65, 90)).chr(random_int(97, 122)).chr(random_int(48, 57)),
-                };
-            }
-        };
-
-        foreach ($generator() as $char) {
-            $code .= $char;
+        if (! self::$instance instanceof \Codelabmw\Testament\Testament) {
+            self::$instance = new self(new DefaultGenerator);
         }
 
-        return $code;
+        return self::$instance;
     }
 
     /**
-     * Verifies that two given codes are equal.
+     * Generate an alphabetical code of the given length (Defaults to 6).
      */
-    public function verify(string $expected, string $actual): bool
+    public static function alpha(int $length = 6): string
     {
-        return $expected === $actual;
+        return self::make()->generator->generate(CodeType::ALPHA, $length);
+    }
+
+    /**
+     * Generate a numeric code of the given length (Defaults to 6).
+     */
+    public static function numeric(int $length = 6): string
+    {
+        return self::make()->generator->generate(CodeType::NUMERIC, $length);
+    }
+
+    /**
+     * Generate an alpha-numeric code of the given length (Defaults to 6).
+     */
+    public static function alphaNumeric(int $length = 6): string
+    {
+        return self::make()->generator->generate(CodeType::ALPHANUMERIC, $length);
+    }
+
+    /**
+     * Generate a password code of the given length (Defaults to 8).
+     */
+    public static function password(int $length = 8): string
+    {
+        return self::make()->generator->generate(CodeType::PASSWORD, $length);
     }
 }
