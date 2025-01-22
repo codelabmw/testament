@@ -26,20 +26,12 @@ composer require codelabmw/testament
 ```php
 <?php
 
-$testament = new \Codelabmw\Testament\Testament::default();
+use Codelabmw\Testament\Testament;
 
-$code = $testament->generate(
-  type: \Codelabmw\Testament\Enums\CodeType::NUMERIC /* code type - numeric | alpa | alphanumeric | password */,
-  length: 8 /* number of characters */
-);
-
-$codeFromUser = getUserCode();
-$codeFromStorage = getStorageCode();
-
-$verified = $testament->verify(
-  expected: $codeFromUser /* ... */,
-  actual: $codeFromStorage /* ... */,
-);
+$alpha = Testament::alpha(length: 8);
+$numeric = Testament::numeric(length: 6);
+$alphaNumeric = Testament::alphaNumeric(/* Length defaults to 6 */);
+$password = Testament::password(/* Length defaults to 8 */);
 ```
 
 ## Testing
